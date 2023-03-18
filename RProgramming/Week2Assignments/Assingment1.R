@@ -64,3 +64,20 @@ complete <- function(directory,id = 1:332) {
   
 }
 
+
+corr <- function(directory, threshold = 0) {
+  allIds <- 1:332
+  files <- readFiles(directory, allIds)
+  dfOfObs <- complete(directory,allIds)
+  ids <- dfOfObs[dfOfObs$nobs > threshold,]$id
+  
+  filesWithNas <- files[ids]
+  filesToAnalyse <- lapply(filesWithNas,function(x) {x[complete.cases(x),]})
+  
+  func <- function(file) {
+    cor(file["sulfate"],file['nitrate'])
+  }
+
+  correlations <- sapply(filesToAnalyse, func)
+  as.vector(correlations)
+}
