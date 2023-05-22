@@ -18,7 +18,7 @@ if (!file.exists("Data")) {
 }
 
 library(data.table)
-library(purrr)
+
 source("../Utility/Utilities.R")
 
 url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
@@ -77,7 +77,7 @@ cleanColNames <- gsub("BodyBody", "Body", cleanColNames)
 colnames(allData) <- cleanColNames
 
 # Group by "subject" and "activity" and calculate the mean for each group
-summarizedData <- allData[, lapply(.SD, mean), by = .(Subject, Activity)]
+summarizedData <- allData[, lapply(.SD, mean), by = .(Subject, Activity)][order(Subject)]
 
 # 5) Create a second, independent tidy data set with the average of each variable for each activity and each subject
 write.table(summarizedData, "tidy_data.txt", row.names = FALSE, quote = FALSE)

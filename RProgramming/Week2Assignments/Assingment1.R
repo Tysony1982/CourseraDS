@@ -81,3 +81,5 @@ corr <- function(directory, threshold = 0) {
   correlations <- sapply(filesToAnalyse, func)
   as.vector(correlations)
 }
+
+swirl()
