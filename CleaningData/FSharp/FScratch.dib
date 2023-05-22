@@ -1,0 +1,56 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"fsharp","items":[{"aliases":[],"languageName":"fsharp","name":"fsharp"}]}}
+
+#!fsharp
+
+open FSharp
+Directory.GetCurrentDirectory()
+
+#!fsharp
+
+#r "nuget: FSharp.Data"
+open FSharp.Data
+
+#!fsharp
+
+open FSharp.Data
+
+[<Literal>]
+let sampleUrl = "https://github.com/datablist/sample-csv-files/raw/main/files/organizations/organizations-100.csv"
+
+let f () = 
+    let file = CsvFile.Load(sampleUrl)
+    file.Save("csv_example.csv")
+    file
+
+#!fsharp
+
+let fileName = "csv_example.csv"
+let file = match File.Exists(fileName) with
+                | false -> CsvFile.Load(fileName)
+                | true -> f()
+
+#!fsharp
+
+open FSharp.Data
+
+[<Literal>]
+let sampleUrl = "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv"
+
+let f2 () = 
+    let file = CsvFile.Load(sampleUrl)
+    file.Save("csv_Ax1.csv")
+    file
+
+#!fsharp
+
+let fileName = "csv_Ax1.csv"
+let file = match File.Exists(fileName) with
+                | false -> CsvFile.Load(fileName)
+                | true -> f2()
+
+#!fsharp
+
+[<Literal>]
+let xlsxUrl = "https://wri-dataportal-prod.s3.amazonaws.com/manual/local_government_renewables_action_tracker_dec_2022.xlsx"

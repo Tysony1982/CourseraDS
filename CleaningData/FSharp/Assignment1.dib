@@ -1,0 +1,30 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"fsharp","items":[{"aliases":[],"languageName":"fsharp","name":"fsharp"}]}}
+
+#!fsharp
+
+#r "nuget: FSharp.Data"
+open FSharp.Data
+open FSharp
+open FSharp.Data
+
+#!fsharp
+
+let file (fn : string) = match File.Exists(fn) with
+                                    | false -> CsvFile.Load(fn)
+                                    | true -> f()
+
+let GetFile (sampleUrl) (fn : string) = 
+    let file = CsvFile.Load(sampleUrl)
+    file.Save(fn)
+    file
+
+#!fsharp
+
+[<Literal>]
+let question1Url = "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv"
+
+let q1FileName = "Question1.csv"
+
+let q1File = GetFile question1Url q1FileName  
